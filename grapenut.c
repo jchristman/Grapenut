@@ -9,10 +9,10 @@ extern int gn_open(char* filename, int flags, int mode);
 #define STDERR 2
 
 // File flags
-#define O_RDONLY    0x0000
-#define O_WRONLY    0x0001
-#define O_RDWR      0x0002
-#define O_CREAT     0x0200        /* create if nonexistant */
+#define O_RDONLY    0000
+#define O_WRONLY    0001
+#define O_RDWR      0002
+#define O_CREAT     0100        /* create if nonexistant */
 
 int main() {
     char buf[64] = { 0 };

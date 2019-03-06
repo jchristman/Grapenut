@@ -2,16 +2,10 @@
 
 import os
 import sys
+import glob
 import shutil
 import argparse
-
-TEMPLATE = './templates/template.c'
-TEMPLATE_SYSCALL_C = './templates/template_syscall.h'
-TEMPLATE_SYSCALL_H = './templates/template_syscall.c'
-PROJECT_DIR = './projects/%s'
-DESTINATION = './projects/%s/main.c'
-SYSCALL_H = './projects/%s/syscall.h'
-SYSCALL_C = './projects/%s/syscall.c'
+import config
 
 class Parser(argparse.ArgumentParser):
    def error(self, message):
@@ -25,7 +19,18 @@ parser.add_argument('project_name', metavar='NAME', type=str, help='Project Name
 
 args = parser.parse_args()
 
-os.mkdir(PROJECT_DIR % args.project_name)
-shutil.copyfile(TEMPLATE, DESTINATION % args.project_name)
-shutil.copyfile(TEMPLATE_SYSCALL_C, SYSCALL_C % args.project_name)
-shutil.copyfile(TEMPLATE_SYSCALL_H, SYSCALL_H % args.project_name)
+# 1. Make the project directory
+os.mkdir(config.Project.Destination_dir % args.project_name)
+
+# 2. Copy the template main.c into the directory
+shutil.copyfile(config.Template.Project.Main, config.Project.Main % args.project_name)
+
+# 3. Copy the template syscall.c (empty) into the directory
+shutil.copyfile(config.Template.Project.Syscall_c, config.Project.Syscall_c % args.project_name)
+
+# 4. Make a complete header file to inform the user what's available
+all_h_data = ''
+for path in glob.glob(config.Template.Asm.Base + '/*.h'):
+    all_h_data += open(path, 'r').read()
+with open(config.Project.Syscall_h % args.project_name, 'w') as f:
+    f.write(all_h_data)

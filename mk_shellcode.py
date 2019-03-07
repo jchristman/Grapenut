@@ -23,7 +23,6 @@ args = parser.parse_args()
 main = config.Project.Main % args.project_name
 project_dir = config.Project.Destination_dir % args.project_name
 syscall_c_file = config.Project.Syscall_c % args.project_name
-syscall_h_file = config.Project.Syscall_h % args.project_name
 
 if not os.path.exists(project_dir):
     sys.stderr.write('That project does not exist!\n')
@@ -48,22 +47,21 @@ syscall_c = '''
 __asm__ volatile ("jmp end");
 '''
 
-syscall_h = ''
-
 for function in used_functions:
     asm_path = os.path.sep.join([config.Template.Asm.Base, '%s.asm' % function])
-    h_path = os.path.sep.join([config.Template.Asm.Base, '%s.h' % function])
-    syscall_c += '\n__asm__ volatile (\n"{function_name}:"'.format(function_name=function)
+
+    # Add the asm function to the C file
+    syscall_c += '\n__asm__ volatile (\n"{function_name}:"\n'.format(function_name=function)
     for line in open(asm_path, 'r').readlines():
-        line = line.strip()
+        line = line.split(';')[0].strip() + '\\n'
         if len(line) == 0:
             continue
         syscall_c += '"{asm_line}"\n'.format(asm_line=line)
     syscall_c += ');\n'
 
-
 syscall_c += '''
 __asm__ volatile ("end:");
 '''
+
 with open(syscall_c_file, 'w') as f:
     f.write(syscall_c)

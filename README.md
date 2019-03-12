@@ -37,7 +37,7 @@ $ ./shellcode_to_py.py --binary=path/to/elf     # rips main out of the binary an
 Supported Architectures
 -----------------------
 
-- [ ] x86
+- [x] x86
 - [ ] x86_64
 
 Implemented Syscall Functions
@@ -63,3 +63,10 @@ Implemented Convenience Functions
 
 - [ ] strcpy
 - [ ] memcpy
+
+Planned Additional Features
+---------------------------
+
+- [ ] combine build process into a single script
+- [ ] add some sed-like features for complicated things like:
+    - [ ] IP replacement with integers (to bypass .rodata and complicated inet_aton support)

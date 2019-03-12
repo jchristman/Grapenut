@@ -31,6 +31,21 @@ __asm__ volatile (
 );
 
 __asm__ volatile (
+"mmap:"
+"push ebp\n"
+"mov ebp, esp\n"
+"\n"
+"mov eax, 0x5a\n"
+"lea ebx, [ebp+8]\n"
+"int 0x80\n"
+"\n"
+"mov esp, ebp\n"
+"pop ebp\n"
+"ret\n"
+"\n"
+);
+
+__asm__ volatile (
 "connect:"
 "push ebp\n"
 "mov ebp, esp\n"
@@ -57,6 +72,23 @@ __asm__ volatile (
 "mov esp, ebp\n"
 "pop ebp\n"
 "ret\n"
+);
+
+__asm__ volatile (
+"write:"
+"push ebp\n"
+"mov ebp, esp\n"
+"\n"
+"mov eax, 0x4\n"
+"mov ebx, [ebp+8]\n"
+"mov ecx, [ebp+12]\n"
+"mov edx, [ebp+16]\n"
+"int 0x80\n"
+"\n"
+"mov esp, ebp\n"
+"pop ebp\n"
+"ret\n"
+"\n"
 );
 
 __asm__ volatile ("end:");

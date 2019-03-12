@@ -1,8 +1,24 @@
 How to Grapenut
 ---------------
 
-Note: This is currently not nice. The plan is to combine all of the steps from
+Note 1: This is currently not nice. The plan is to combine all of the steps from
 `mk_shellcode.py` onwards into a single script.
+
+Note 2: The following is the single caveat I have found so far:
+
+```C
+// Don't do this
+char * tmp = "Hello, world";    // This will place the string in .rodata and point to it
+
+// Instead do this
+char tmp[] = "Hello, world";    // This will assign the string in the local function scope
+```
+
+Turns out the only way to get strings to not be in `.rodata` is the second method above.
+This includes having issues with `#define TMP "/bin/bash"`. This will not work how you
+expect it to.
+
+Finally -- here's how to use the tools.
 
 ```
 $ ./new_project.py PROJECT_NAME

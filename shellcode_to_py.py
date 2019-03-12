@@ -4,8 +4,6 @@ import argparse
 import subprocess
 import re
 
-MAX_CHARS_PER_LINE = 80
-
 READELF_ARGV = ["readelf", "-x", ".text"]
 
 def main():

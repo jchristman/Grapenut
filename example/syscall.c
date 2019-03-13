@@ -2,12 +2,12 @@
 __asm__ volatile ("jmp end");
 
 __asm__ volatile (
-"socket:"
+"connect:"
 "push ebp\n"
 "mov ebp, esp\n"
 "\n"
 "mov eax, 0x66\n"
-"mov ebx, 0x1\n"
+"mov ebx, 0x3\n"
 "lea ecx, [ebp+8]\n"
 "int 0x80\n"
 "\n"
@@ -22,6 +22,39 @@ __asm__ volatile (
 "mov ebp, esp\n"
 "\n"
 "mov eax, 0x6\n"
+"mov ebx, [ebp+8]\n"
+"int 0x80\n"
+"\n"
+"mov esp, ebp\n"
+"pop ebp\n"
+"ret\n"
+);
+
+__asm__ volatile (
+"memcpy:"
+"push ebp\n"
+"mov ebp, esp\n"
+"push edi\n"
+"push esi\n"
+"\n"
+"mov edi, [ebp+8]\n"
+"mov esi, [ebp+12]\n"
+"mov ecx, [ebp+16]\n"
+"rep movsb\n"
+"\n"
+"pop esi\n"
+"pop edi\n"
+"mov esp, ebp\n"
+"pop ebp\n"
+"ret\n"
+);
+
+__asm__ volatile (
+"exit:"
+"push ebp\n"
+"mov ebp, esp\n"
+"\n"
+"mov eax, 0x1\n"
 "mov ebx, [ebp+8]\n"
 "int 0x80\n"
 "\n"
@@ -46,40 +79,11 @@ __asm__ volatile (
 );
 
 __asm__ volatile (
-"connect:"
+"read:"
 "push ebp\n"
 "mov ebp, esp\n"
 "\n"
-"mov eax, 0x66\n"
-"mov ebx, 0x3\n"
-"lea ecx, [ebp+8]\n"
-"int 0x80\n"
-"\n"
-"mov esp, ebp\n"
-"pop ebp\n"
-"ret\n"
-);
-
-__asm__ volatile (
-"exit:"
-"push ebp\n"
-"mov ebp, esp\n"
-"\n"
-"mov eax, 0x1\n"
-"mov ebx, [ebp+8]\n"
-"int 0x80\n"
-"\n"
-"mov esp, ebp\n"
-"pop ebp\n"
-"ret\n"
-);
-
-__asm__ volatile (
-"write:"
-"push ebp\n"
-"mov ebp, esp\n"
-"\n"
-"mov eax, 0x4\n"
+"mov eax, 0x3\n"
 "mov ebx, [ebp+8]\n"
 "mov ecx, [ebp+12]\n"
 "mov edx, [ebp+16]\n"
@@ -89,6 +93,21 @@ __asm__ volatile (
 "pop ebp\n"
 "ret\n"
 "\n"
+);
+
+__asm__ volatile (
+"socket:"
+"push ebp\n"
+"mov ebp, esp\n"
+"\n"
+"mov eax, 0x66\n"
+"mov ebx, 0x1\n"
+"lea ecx, [ebp+8]\n"
+"int 0x80\n"
+"\n"
+"mov esp, ebp\n"
+"pop ebp\n"
+"ret\n"
 );
 
 __asm__ volatile ("end:");

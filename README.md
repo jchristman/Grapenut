@@ -28,9 +28,6 @@ $ cd projects/PROJECT_NAME
 
 $ cd ../..
 $ ./mk_shellcode.py PROJECT_NAME                # combines asm functions into syscall.c
-$ cd projects/PROJECT_NAME
-$ gcc main -o test -m32 -masm=intel             # compiles to an ELF
-$ cd ../..
 $ ./shellcode_to_py.py --binary=path/to/elf     # rips main out of the binary and returns the bytes
 ```
 

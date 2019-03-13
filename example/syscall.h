@@ -1,3 +1,4 @@
+extern int connect(int sockfd, struct sockaddr *addr, short addrlen);
 extern int open(char* filename, int flags, int mode);
 extern int close(unsigned int fd);
 extern int write(int fd, char* buf, int count);
@@ -102,4 +103,3 @@ extern int socket(int domain, int type, int protocol);
 #define O_CREAT     0100
 
 #define NULL 0
-extern int connect(int sockfd, struct sockaddr *addr, short addrlen);

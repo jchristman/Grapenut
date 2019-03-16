@@ -58,8 +58,8 @@ Implemented Syscall Functions
 Implemented Convenience Functions
 ---------------------------------
 
-- [ ] strcpy
-- [ ] memcpy
+- [x] strcpy
+- [x] memcpy
 
 Planned Additional Features
 ---------------------------

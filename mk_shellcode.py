@@ -80,7 +80,7 @@ print()
 print('[.] Building project')
 os.chdir(project_dir)
 
-gcc_cmd = 'gcc %s -o shellcode.elf -nostdlib -m32 -masm=intel -fno-builtin' % main.split(os.path.sep)[-1]
+gcc_cmd = 'gcc %s -o shellcode.elf -nostdlib -m32 -masm=intel -fno-builtin -fno-stack-protector' % main.split(os.path.sep)[-1]
 print('\t[.] %s' % gcc_cmd)
 print()
 errno = os.system(gcc_cmd)

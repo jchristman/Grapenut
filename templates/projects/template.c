@@ -1,8 +1,8 @@
-#include "syscall.h";
+#include "syscall.h"
 
 int main() {
     // And now you can code in C
 
-    #include "syscall.c";
+    #include "syscall.c"
     return 0;
 }

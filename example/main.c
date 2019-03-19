@@ -6,7 +6,7 @@
 #define FLAGS (MAP_ANON|MAP_COPY)
 
 #define C2PORT 9000
-#define C2IP 0x020011ac  // Because conversions are hard
+#define C2IP 0x0100007f  // Because conversions are hard
 
 int main() {
     // And now you can code in C

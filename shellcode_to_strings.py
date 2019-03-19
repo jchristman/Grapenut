@@ -1,5 +1,8 @@
 #!/usr/bin/python3
 
+#TODO: Have something automatically run this, generate run_shellcode.c, and compile it in the project dir
+#	(probably in mk_shellcode.py)
+
 import argparse
 import subprocess
 import re
@@ -29,7 +32,7 @@ def main():
 		for i in range(0, len(output_string), 16):
 			if i != 0:
 				prefix = "\t\t"
-			print(prefix + "\"" + '\\x'.join(hex(char)[2:].zfill(2) for char in output_string[i:i+16]) + "\"", end='')
+			print(prefix + "\"\\x" + '\\x'.join(hex(char)[2:].zfill(2) for char in output_string[i:i+16]) + "\"", end='')
 			if i + 16 >= len(output_string):
 				print(";")
 			else:

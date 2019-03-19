@@ -20,6 +20,14 @@ def main():
 	for i in range(0, len(output_string), 16):
 		print('shellcode += \'\\x' + '\\x'.join(hex(char)[2:].zfill(2) for char in output_string[i:i+16]) + '\'')
 
+	print("")
+
+	print("char *shellcode = \"", end = '', flush=True)
+	for i in range(0, len(output_string)):
+		print("\\x%02x" % output_string[i], end='', flush=True)
+
+	print("\"")
+
 def parse_args():
 	parser = argparse.ArgumentParser(description="Dumps shellcode from binary's main functon")
 	parser.add_argument('--binary', dest='bin', required=True, help='Target ELF Binary')
